@@ -21,11 +21,13 @@ USER www-data
 # Run composer install ignoring platform requirements and disabling scripts during build
 RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs --no-scripts
 
-# Run Laravel package discovery using in-memory drivers to avoid Redis/MySQL connection issues
+# Run Laravel package discovery using in-memory and sync drivers to avoid Redis/MySQL connection issues
 RUN APP_ENV=production \
     CACHE_STORE=array \
     CACHE_DRIVER=array \
     SESSION_DRIVER=array \
+    QUEUE_CONNECTION=sync \
+    BROADCAST_DRIVER=log \
     DB_CONNECTION=sqlite \
     DB_DATABASE=:memory: \
     php artisan package:discover --ansi
