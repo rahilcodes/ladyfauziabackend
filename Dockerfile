@@ -32,5 +32,9 @@ RUN rm -rf /var/www/html/public/storage \
     && ln -s /var/www/html/storage/app/public /var/www/html/public/storage \
     && chown -h www-data:www-data /var/www/html/public/storage
 
+# Touch storage/installed to bypass the installer redirect
+RUN touch /var/www/html/storage/installed \
+    && chown www-data:www-data /var/www/html/storage/installed
+
 # Return to www-data for container runtime execution
 USER www-data
