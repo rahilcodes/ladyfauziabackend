@@ -8,11 +8,11 @@
 
 <head>
     {!! view_render_event('bagisto.admin.layout.head.before') !!}
-
-    <title>{{ $title ?? '' }}</title>
-
+ 
+    <title>{{ ($title ?? '') ? $title . ' - Lady Fauzia Co. Admin' : 'Lady Fauzia Co. Admin' }}</title>
+ 
     <meta charset="UTF-8">
-
+ 
     <meta
         http-equiv="X-UA-Compatible"
         content="IE=edge"
@@ -37,27 +37,27 @@
         name="generator" 
         content="Bagisto"
     >
-
+ 
     @stack('meta')
-
+ 
     @bagistoVite(['src/Resources/assets/css/app.css', 'src/Resources/assets/js/app.js'])
-
+ 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     />
-
+ 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
         rel="stylesheet"
     />
-
+ 
     <link
         rel="preload"
         as="image"
-        href="{{ url('cache/logo/bagisto.png') }}"
+        href="{{ bagisto_asset('images/logo.png') }}"
     >
-
+ 
     @if ($favicon = core()->getConfigData('general.design.admin_logo.favicon'))
         <link
             type="image/x-icon"
@@ -73,13 +73,109 @@
             sizes="16x16"
         />
     @endif
-
+ 
     @stack('styles')
-
+ 
     <style>
         {!! core()->getConfigData('general.content.custom_scripts.custom_css') !!}
-    </style>
+        
+        /* Custom Luxury Theme Overrides for Lady Fauzia */
+        body {
+            font-family: 'Poppins', sans-serif !important;
+        }
 
+        /* Selection Background */
+        ::selection {
+            background-color: rgba(140, 120, 83, 0.2) !important;
+        }
+
+        /* Primary & Secondary Buttons override to Gold/Bronze */
+        .primary-button {
+            background-color: #8C7853 !important;
+            border-color: #766444 !important;
+            color: #FFFFFF !important;
+            transition: all 0.3s ease;
+        }
+        .primary-button:hover, .primary-button:focus, .primary-button:active {
+            background-color: #766444 !important;
+            border-color: #5E5036 !important;
+            opacity: 1 !important;
+        }
+        
+        .secondary-button {
+            border-color: #8C7853 !important;
+            color: #8C7853 !important;
+            background-color: #FFFFFF !important;
+            transition: all 0.3s ease;
+        }
+        .secondary-button:hover, .secondary-button:focus, .secondary-button:active {
+            background-color: #FAF9F6 !important;
+            color: #766444 !important;
+            border-color: #766444 !important;
+        }
+        .dark .secondary-button {
+            border-color: #D1B894 !important;
+            color: #D1B894 !important;
+            background-color: #171614 !important;
+        }
+        .dark .secondary-button:hover {
+            background-color: #24221F !important;
+            color: #FAF9F6 !important;
+        }
+
+        /* Active Navigation States & Badges */
+        .bg-blue-600 {
+            background-color: #8C7853 !important; /* Gold/Bronze active capsule */
+        }
+        .text-blue-600 {
+            color: #8C7853 !important;
+        }
+        .hover\:text-blue-600:hover {
+            color: #766444 !important;
+        }
+        .border-blue-600 {
+            border-color: #8C7853 !important;
+        }
+        .border-b-2.border-blue-600 {
+            border-bottom-color: #8C7853 !important;
+        }
+
+        /* Profile buttons & fallback icons */
+        .bg-blue-400 {
+            background-color: #8C7853 !important;
+        }
+        .hover\:bg-blue-500:hover {
+            background-color: #766444 !important;
+        }
+        .focus\:bg-blue-500:focus {
+            background-color: #766444 !important;
+        }
+
+        /* Input Elements and Focus states */
+        input:focus, select:focus, textarea:focus {
+            border-color: #8C7853 !important;
+            --tw-ring-color: #8C7853 !important;
+            box-shadow: 0 0 0 1px #8C7853 !important;
+        }
+
+        /* Submenu Active Styles */
+        .text-blue-600.dark\:text-blue-300 {
+            color: #8C7853 !important;
+        }
+        .dark .text-blue-600.dark\:text-blue-300 {
+            color: #D1B894 !important;
+        }
+
+        /* TinyMCE override */
+        .tox .tox-toolbar__group:last-child button {
+            background: #FAF9F6 !important;
+            color: #8C7853 !important;
+        }
+        .tox .tox-toolbar__group:last-child button:hover {
+            background: #E5E0D8 !important;
+        }
+    </style>
+ 
     {!! view_render_event('bagisto.admin.layout.head.after') !!}
 </head>
 

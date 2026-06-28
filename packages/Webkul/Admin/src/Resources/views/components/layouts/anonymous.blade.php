@@ -66,6 +66,46 @@
 
     <style>
         {!! core()->getConfigData('general.content.custom_scripts.custom_css') !!}
+        
+        /* Custom Luxury Theme Overrides for Lady Fauzia */
+        body {
+            font-family: 'Poppins', sans-serif !important;
+            background-color: #FAF9F6 !important;
+        }
+        .dark body {
+            background-color: #0F0E0C !important;
+        }
+
+        /* Selection Background */
+        ::selection {
+            background-color: rgba(140, 120, 83, 0.2) !important;
+        }
+
+        /* Primary & Secondary Buttons override to Gold/Bronze */
+        .btn-luxury, .primary-button {
+            background-color: #8C7853 !important;
+            border-color: #766444 !important;
+            color: #FFFFFF !important;
+            transition: all 0.3s ease;
+        }
+        .btn-luxury:hover, .primary-button:hover {
+            background-color: #766444 !important;
+            border-color: #5E5036 !important;
+        }
+        
+        .link-luxury, .text-blue-600 {
+            color: #8C7853 !important;
+        }
+        .link-luxury:hover, .text-blue-600:hover {
+            color: #766444 !important;
+        }
+
+        /* Input Elements and Focus states */
+        input:focus, select:focus, textarea:focus {
+            border-color: #8C7853 !important;
+            --tw-ring-color: #8C7853 !important;
+            box-shadow: 0 0 0 1px #8C7853 !important;
+        }
     </style>
 
     {!! view_render_event('bagisto.admin.layout.head') !!}

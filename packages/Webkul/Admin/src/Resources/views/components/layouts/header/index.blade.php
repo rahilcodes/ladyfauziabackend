@@ -21,7 +21,7 @@
                 />
             @else
                 <img
-                    src="{{ request()->cookie('dark_mode') ? bagisto_asset('images/dark-logo.svg') : bagisto_asset('images/logo.svg') }}"
+                    src="{{ request()->cookie('dark_mode') ? bagisto_asset('images/dark-logo.png') : bagisto_asset('images/logo.png') }}"
                     class="h-8 w-auto sm:h-10"
                     id="logo-image"
                     alt="{{ config('app.name') }}"
@@ -98,8 +98,8 @@
             <x-slot:content class="!p-0">
                 <div class="flex items-center gap-1.5 border border-b-gray-300 px-4 py-2 dark:border-gray-800 sm:px-5 sm:py-2.5">
                     <img
-                        src="{{ url('cache/logo/bagisto.png') }}"
-                        class="sm:h-6 sm:w-6"
+                        src="{{ bagisto_asset('images/logo.png') }}"
+                        class="sm:h-6 sm:w-auto"
                         width="20"
                         height="20"
                     />
@@ -156,7 +156,7 @@
                 />
             @else
                 <img
-                    src="{{ request()->cookie('dark_mode') ? bagisto_asset('images/dark-logo.svg') : bagisto_asset('images/logo.svg') }}"
+                    src="{{ request()->cookie('dark_mode') ? bagisto_asset('images/dark-logo.png') : bagisto_asset('images/logo.png') }}"
                     class="h-8 w-auto sm:h-10"
                     id="logo-image"
                     alt="{{ config('app.name') }}"
@@ -741,9 +741,9 @@
                 return {
                     isDarkMode: {{ request()->cookie('dark_mode') ?? 0 }},
 
-                    logo: "{{ bagisto_asset('images/logo.svg') }}",
+                    logo: "{{ bagisto_asset('images/logo.png') }}",
 
-                    dark_logo: "{{ bagisto_asset('images/dark-logo.svg') }}",
+                    dark_logo: "{{ bagisto_asset('images/dark-logo.png') }}",
                 };
             },
 

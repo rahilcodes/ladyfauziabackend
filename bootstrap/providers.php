@@ -93,4 +93,5 @@ return [
     TaxServiceProvider::class,
     ThemeServiceProvider::class,
     UserServiceProvider::class,
+    LadyFauzia\Providers\LadyFauziaServiceProvider::class,
 ];
