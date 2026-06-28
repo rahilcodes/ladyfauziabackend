@@ -27,8 +27,10 @@ USER root
 # Configure public directory as the web root
 ENV DOCUMENT_ROOT=/var/www/html/public
 
-# Run storage link during build
-RUN php artisan storage:link --force
+# Recreate the public storage symbolic link using native Linux commands (bypasses booting Laravel/Redis)
+RUN rm -rf /var/www/html/public/storage \
+    && ln -s /var/www/html/storage/app/public /var/www/html/public/storage \
+    && chown -h www-data:www-data /var/www/html/public/storage
 
 # Return to www-data for container runtime execution
 USER www-data
