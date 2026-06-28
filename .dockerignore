@@ -2,7 +2,6 @@
 .git
 vendor
 node_modules
-bootstrap/cache/*
 storage/logs/*
 storage/framework/cache/data/*
 storage/framework/views/*
