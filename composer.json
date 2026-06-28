@@ -17,6 +17,8 @@
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-tokenizer": "*",
+        "ext-gd": "*",
+        "ext-bcmath": "*",
         "astrotomic/laravel-translatable": "^11.16",
         "bagisto/bagisto-api": "^1.0",
         "barryvdh/laravel-dompdf": "^2.0.0|^3.0",
