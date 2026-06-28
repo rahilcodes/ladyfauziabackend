@@ -21,13 +21,22 @@ USER www-data
 # Run composer install ignoring platform requirements and disabling scripts during build
 RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs --no-scripts
 
+# Run Laravel package discovery using in-memory drivers to avoid Redis/MySQL connection issues
+RUN APP_ENV=production \
+    CACHE_STORE=array \
+    CACHE_DRIVER=array \
+    SESSION_DRIVER=array \
+    DB_CONNECTION=sqlite \
+    DB_DATABASE=:memory: \
+    php artisan package:discover --ansi
+
 # Switch back to root to configure system-level environment variables
 USER root
 
 # Configure public directory as the web root
 ENV DOCUMENT_ROOT=/var/www/html/public
 
-# Recreate the public storage symbolic link using native Linux commands (bypasses booting Laravel/Redis)
+# Recreate the public storage symbolic link using native Linux commands
 RUN rm -rf /var/www/html/public/storage \
     && ln -s /var/www/html/storage/app/public /var/www/html/public/storage \
     && chown -h www-data:www-data /var/www/html/public/storage
