@@ -6,14 +6,14 @@ USER root
 # Copy codebase with correct permissions
 COPY --chown=www-data:www-data . /var/www/html
 
-# Ensure storage and bootstrap/cache directories exist and are fully writeable
+# Ensure the entire app directory (including storage and cache) is fully writeable by www-data
 RUN mkdir -p /var/www/html/storage/framework/cache/data \
              /var/www/html/storage/framework/views \
              /var/www/html/storage/framework/sessions \
              /var/www/html/storage/logs \
              /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html
 
 # Switch to www-data to safely run composer install
 USER www-data
