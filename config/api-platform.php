@@ -148,11 +148,11 @@ return [
         'datetime_format' => 'Y-m-d\TH:i:sP',
     ],
 
-    'cache' => 'redis',
+    'cache' => env('API_PLATFORM_CACHE', 'redis'),
 
     'schema_cache' => [
         'enabled' => true,
-        'store'   => 'redis',
+        'store'   => env('API_PLATFORM_SCHEMA_CACHE_STORE', 'redis'),
     ],
 
     'security' => [

@@ -28,6 +28,9 @@ RUN APP_ENV=production \
     SESSION_DRIVER=array \
     QUEUE_CONNECTION=sync \
     BROADCAST_DRIVER=log \
+    API_PLATFORM_CACHE=array \
+    API_PLATFORM_SCHEMA_CACHE_STORE=array \
+    RATE_LIMIT_CACHE=array \
     DB_CONNECTION=sqlite \
     DB_DATABASE=:memory: \
     php artisan package:discover --ansi
