@@ -18,8 +18,8 @@ RUN mkdir -p /var/www/html/storage/framework/cache/data \
 # Switch to www-data to safely run composer install
 USER www-data
 
-# Run composer install ignoring platform requirements (since extensions are available at runtime)
-RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs
+# Run composer install ignoring platform requirements and disabling scripts during build
+RUN composer install --no-dev --optimize-autoloader --no-interaction --ignore-platform-reqs --no-scripts
 
 # Switch back to root to configure system-level environment variables
 USER root
