@@ -53,7 +53,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })
-->withProviders([
+->withProviders(env('SKIP_API_PLATFORM') ? [] : [
      \ApiPlatform\Laravel\ApiPlatformProvider::class,
      \ApiPlatform\Laravel\ApiPlatformDeferredProvider::class,
      \ApiPlatform\Laravel\Eloquent\ApiPlatformEventProvider::class,

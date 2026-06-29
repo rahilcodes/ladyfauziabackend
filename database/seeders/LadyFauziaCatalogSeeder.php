@@ -80,40 +80,74 @@ class LadyFauziaCatalogSeeder extends Seeder
         ];
 
         $categoryMap = [];
+        $now = \Carbon\Carbon::now();
+
+        // Truncate existing categories safely (except root)
+        DB::table('categories')->where('id', '>', 1)->delete();
+        DB::table('category_translations')->where('category_id', '>', 1)->delete();
+
+        // Reset auto-increment
+        DB::statement('ALTER TABLE categories AUTO_INCREMENT = 2;');
+
+        $catIdCounter = 2;
 
         foreach ($categoriesConfig as $catIndex => $cat) {
-            $parent = $categoryRepository->create([
+            $parentId = $catIdCounter++;
+
+            // Insert parent category
+            DB::table('categories')->insert([
+                'id' => $parentId,
                 'position' => $catIndex + 1,
                 'status' => 1,
                 'display_mode' => 'products_and_description',
                 'parent_id' => 1,
-                'en' => [
-                    'name' => $cat['name'],
-                    'slug' => $cat['slug'],
-                    'description' => $cat['desc'],
-                ]
+                '_lft' => 0,
+                '_rgt' => 0,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+
+            // Insert parent translation
+            DB::table('category_translations')->insert([
+                'name' => $cat['name'],
+                'slug' => $cat['slug'],
+                'description' => $cat['desc'],
+                'category_id' => $parentId,
+                'locale' => 'en',
             ]);
 
             foreach ($cat['sub'] as $subIndex => $sub) {
-                $child = $categoryRepository->create([
+                $childId = $catIdCounter++;
+
+                // Insert child category
+                DB::table('categories')->insert([
+                    'id' => $childId,
                     'position' => $subIndex + 1,
                     'status' => 1,
                     'display_mode' => 'products_and_description',
-                    'parent_id' => $parent->id,
-                    'en' => [
-                        'name' => $sub['name'],
-                        'slug' => $sub['slug'],
-                        'description' => $sub['desc'],
-                    ]
+                    'parent_id' => $parentId,
+                    '_lft' => 0,
+                    '_rgt' => 0,
+                    'created_at' => $now,
+                    'updated_at' => $now,
                 ]);
 
-                $categoryMap[$sub['slug']] = $child->id;
+                // Insert child translation
+                DB::table('category_translations')->insert([
+                    'name' => $sub['name'],
+                    'slug' => $sub['slug'],
+                    'description' => $sub['desc'],
+                    'category_id' => $childId,
+                    'locale' => 'en',
+                ]);
+
+                $categoryMap[$sub['slug']] = $childId;
 
                 // Copy and attach banner/logo image to the category
                 $sourceFile = base_path('packages/Webkul/Installer/src/Resources/assets/images/seeders/products/' . $sub['img']);
                 if (file_exists($sourceFile)) {
-                    $storedPath = Storage::putFile('category/' . $child->id, new File($sourceFile));
-                    $child->update([
+                    $storedPath = Storage::putFile('category/' . $childId, new File($sourceFile));
+                    DB::table('categories')->where('id', $childId)->update([
                         'logo_path' => $storedPath,
                         'banner_path' => $storedPath,
                     ]);
